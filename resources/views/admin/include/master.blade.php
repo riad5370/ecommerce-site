@@ -52,6 +52,7 @@
 
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="{{asset('backend')}}/assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     @yield('css')
 </head>
 
@@ -159,7 +160,7 @@
 
     <!-- Theme js -->
     <script src="{{asset('backend')}}/assets/js/script.js"></script>
-    @yield('js')
+    @stack('js')
 </body>
 
 </html>

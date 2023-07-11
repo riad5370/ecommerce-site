@@ -40,6 +40,22 @@
                           <span class="disabled">PRODUCTS</span>
                       </a>
                     </li>
+
+                    <li class="sidebar-list">
+                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                            <i class="ri-list-check-2"></i>
+                            <span>Category</span>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li>
+                                <a href="{{route('categories.index')}}">Category List</a>
+                            </li>
+  
+                            <li>
+                                <a href="{{route('categories.create')}}">Add New Category</a>
+                            </li>
+                        </ul>
+                    </li>
   
                     <li class="sidebar-list">
                         <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
@@ -57,22 +73,7 @@
                         </ul>
                     </li>
   
-                    <li class="sidebar-list">
-                        <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
-                            <i class="ri-list-check-2"></i>
-                            <span>Category</span>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li>
-                                <a href="">Category List</a>
-                            </li>
-  
-                            <li>
-                                <a href="">Add New Category</a>
-                            </li>
-                        </ul>
-                    </li>
-  
+
                     <li class="sidebar-list">
                         <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                             <i class="ri-list-settings-line"></i>

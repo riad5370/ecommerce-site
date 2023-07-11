@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,5 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
         return view('admin.dashboard');
     })->name('dashboard');
 
-    
+    Route::resource('/categories',CategoryController::class);
 });
