@@ -53,13 +53,14 @@
                                         'fa-cc-visa',
                                         'fa-certificate', 
                                         'fa-child',
-                                        'fa-clock-o',   
+                                        'fa-clock-o',
+                                        'fa-tshirt'   
                                     ];
                                 @endphp
                                 <label for="form-label">select icon</label>
                                 <div style="font-family: fontawesome; font-size:20px">
                                     @foreach($icons as $icon)
-                                        <i class="fa {{$icon}}" data-icon="{{$icon}}"></i>
+                                        <i class="fa fas {{$icon}}" data-icon="{{$icon}}"></i>
                                     @endforeach
                                     <input type="text" id="icon" class="form-control" name="icon" placeholder="icon">
                                 </div>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VariationController;
 
+use App\Http\Controllers\FrontendController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +19,7 @@ use App\Http\Controllers\Admin\VariationController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[FrontendController::class,'index'])->name('index');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {
@@ -27,14 +27,18 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
         return view('admin.dashboard');
     })->name('dashboard');
 
+
+    //category
     Route::resource('/categories',CategoryController::class);
+    //subcategory
     Route::resource('/subcategories',SubcategoryController::class);
+    //product
     Route::resource('/products',ProductController::class);
+    Route::post('/getsubcategory',[ProductController::class,'getsubcategory']);
     Route::get('/products/inventory/{id}',[ProductController::class,'inventory'])->name('products.inventory');
     Route::post('/products/store',[ProductController::class,'inventoryStore'])->name('inventory.store');
-
+    //product-variation
     Route::get('/product/variation',[VariationController::class,'productVariation'])->name('products.variation');
     Route::post('/product/variation/store',[VariationController::class,'variationStore'])->name('variation.store');
 
-    Route::post('/getsubcategory',[ProductController::class,'getsubcategory']);
 });
