@@ -80,11 +80,14 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li>
-                                <a href="">Prodcts</a>
+                                <a href="{{route('products.index')}}">Prodcts</a>
                             </li>
   
                             <li>
-                                <a href="">Add New Products</a>
+                                <a href="{{route('products.create')}}">Add New Products</a>
+                            </li>
+                            <li>
+                                <a href="{{route('products.variation')}}">Variation</a>
                             </li>
                         </ul>
                     </li>
