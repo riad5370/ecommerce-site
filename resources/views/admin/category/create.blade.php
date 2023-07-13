@@ -18,49 +18,22 @@
                             <div class="form-group">
                                 @php
                                     $icons = [
-                                        'fa-500px',
-                                        'fa-address-book',
-                                        'fa-address-book-o',
-                                        'fa-address-card',
-                                        'fa-address-card-o',
-                                        'fa-adjust',
-                                        'fa-adn',
-                                        'fa-align-center',
-                                        'fa-align-justify',
-                                        'fa-align-left',
-                                        'fa-align-right',
-                                        'fa-amazon',
-                                        'fa-ambulance',
-                                        'fa-american-sign-language-interpreting',
-                                        'fa-caret-down',
-                                        'fa-caret-left',
-                                        'fa-caret-right',
-                                        'fa-caret-square-o-down',
-                                        'fa-caret-square-o-left',
-                                        'fa-caret-square-o-right',
-                                        'fa-caret-square-o-up',
-                                        'fa-caret-up',
-                                        'fa-cart-arrow-down',
-                                        'fa-cart-plus',
-                                        'fa-cc',
-                                        'fa-cc-amex',
-                                        'fa-cc-diners-club',
-                                        'fa-cc-discover',
-                                        'fa-cc-jcb',
-                                        'fa-cc-mastercard',
-                                        'fa-cc-paypal',
-                                        'fa-cc-stripe',
-                                        'fa-cc-visa',
-                                        'fa-certificate', 
-                                        'fa-child',
-                                        'fa-clock-o',
-                                        'fa-tshirt'   
+                                        'fa-tshirt',
+                                        'fa-tv', 
+                                        'fa-gift', 
+                                        'fa-leaf', 
+                                        'fa-headphones-alt', 
+                                        'fa-football-ball',
+                                        'fa-hat-wizard',
+                                        'fa-couch',
+                                        'fa-running',
+                                        'fa-house-damage'
                                     ];
                                 @endphp
                                 <label for="form-label">select icon</label>
                                 <div style="font-family: fontawesome; font-size:20px">
                                     @foreach($icons as $icon)
-                                        <i class="fa fas {{$icon}}" data-icon="{{$icon}}"></i>
+                                        <i class="fas {{$icon}}" data-icon="{{$icon}}"></i>
                                     @endforeach
                                     <input type="text" id="icon" class="form-control" name="icon" placeholder="icon">
                                 </div>
@@ -93,7 +66,7 @@
 @endsection
 @push('js')
 <script>
-    $('.fa').click(function(){
+    $('.fas').click(function(){
     var icon = $(this).attr('data-icon');
     $('#icon').attr('value',icon);
     });

@@ -55,6 +55,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $slug = Str::lower(str_replace(' ', '-', $request->name)) . '-' . rand(0, 100000000);
+        
         $after_discount = $request->price - ($request->price * $request->discount / 100);
 
         $validationRules = [
@@ -64,7 +65,7 @@ class ProductController extends Controller
             'price' => 'required',
             'discount' => 'nullable|numeric',
             'brand' => 'required',
-            'short_desp' => 'required',
+            'short_desp' => 'nullable',
             'long_desp' => 'required',
             'preview' => 'required|image|file|max:1024',
         ];

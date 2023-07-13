@@ -20,6 +20,7 @@ use App\Http\Controllers\FrontendController;
 */
 
 Route::get('/',[FrontendController::class,'index'])->name('index');
+Route::get('/product-details/{slug}',[FrontendController::class,'details'])->name('details');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {

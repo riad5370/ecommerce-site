@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('discount')->nullable();
             $table->integer('after_discount');
             $table->string('brand');
-            $table->string('short_desp');
+            $table->text('short_desp')->nullable();
             $table->longText('long_desp');
             $table->string('preview');
             $table->string('slug');

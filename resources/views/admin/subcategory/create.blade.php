@@ -11,6 +11,9 @@
                         </div>
                         <form action="{{route('subcategories.store')}}" method="POST" class="theme-form theme-form-2 mega-form" enctype="multipart/form-data">
                             @csrf
+                            @if(session('success'))
+                            <div class="alert alert-primary">{{session('success')}}</div>
+                        @endif
                         <div class="mb-4 row align-items-center">
                             <div class="col-sm-12">
                                 <label class="form-label-title  mb-2">Category Name<span class="text-danger">*</span></label>

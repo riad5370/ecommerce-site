@@ -17,8 +17,8 @@
                     </form>
                 </div>
                 @if(session('success'))
-                        <div class="alert alert-primary">{{session('success')}}</div>
-                        @endif
+                    <div class="alert alert-primary">{{session('success')}}</div>
+                @endif
                 <div class="table-responsive table-product">
                     <table class="table all-package theme-table" id="table_id">
                         <thead>
@@ -37,7 +37,12 @@
                                     <td>{{ $category->category->name ?: 'Unknown Category' }}</td>
                                     <td>{{ $category->name}}</td>
                                     <td>
+                                        @if ($category->image)
                                         <img width="70" src="{{asset('uploads/subcategory/'.$category->image)}}" alt="">
+                                        @else
+                                        <span>No Image</span>   
+                                        @endif
+                                        
                                     </td>
                                     <td>
                                         <ul>

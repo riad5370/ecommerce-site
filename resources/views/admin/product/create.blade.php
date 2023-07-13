@@ -53,19 +53,22 @@
                                 <input type="number" class="form-control" name="discount" placeholder="Discount %">
                             </div>
                         </div>
-                        <div class="col-lg-5 mt-2">
+                        <div class="col-lg-12 mt-2">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="brand" placeholder="Product Brand">
                             </div>
                         </div>
-                        <div class="col-lg-7 mt-2">
+                        <div class="col-lg-12 mt-2">
                             <div class="form-group">
-                                <input type="text" class="form-control" name="short_desp" placeholder="Short Description">
+                                <label for="">short description</label>
+                                <textarea class="form-control" id="summernote" name="short_desp" placeholder="sort Description"></textarea>
+                                {{-- <input type="text" class="form-control" name="short_desp" placeholder="Short Description"> --}}
                             </div>
                         </div>
                         <div class="col-lg-12 mt-2">
+                            <label for="">Long description</label>
                             <div class="form-group">
-                                <textarea class="form-control" id="summernote" name="long_desp" placeholder="Long Description"></textarea>
+                                <textarea class="form-control" id="summernote2" name="long_desp" placeholder="Long Description"></textarea>
                             </div>
                         </div>
                         <div class="col-lg-6 mt-2">
@@ -117,6 +120,11 @@
     <script>
         $(document).ready(function() {
             $('#summernote').summernote();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#summernote2').summernote();
         });
     </script>
 @endpush

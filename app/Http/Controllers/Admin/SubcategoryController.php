@@ -39,7 +39,7 @@ class SubcategoryController extends Controller
         $data = [
             'name'=> 'required|unique:subcategories',
             'category_id'=>'required',
-            'image'=> 'required|image|file|max:2048',
+            'image'=> 'image|file|max:2048',
         ];
         $validatedData = $request->validate($data);
 

@@ -40,9 +40,14 @@
                                         @endif
                                         </td>
                                         <td>
-                                            <img width="75" src="{{asset('uploads/category/'.$category->image)}}" alt="">
+                                        @if ($category->image)
+                                        <img width="75" src="{{asset('uploads/category/'.$category->image)}}" alt="">
+                                        @else
+                                         <span>no image</span> 
+                                        @endif
+                                            
                                         </td>
-                                        <td style="font-family: fontawesome"><i class="{{$category->icon}}"></i></td>
+                                        <td style="font-family: fontawesome"><i class="fas {{$category->icon}}"></i></td>
                                     <td>
                                         <ul>
                                             <li>

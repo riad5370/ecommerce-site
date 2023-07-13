@@ -128,14 +128,14 @@
                 <div class="product_grid card b-0">
 
                     @if($product->discount != null)
-                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">{{$product->discount}}%</div>
+                        <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">-{{$product->discount}}%</div>
                     @else
                         <div class="badge bg-info text-white position-absolute ft-regular ab-right text-upper">New</div>
                     @endif
 
                     <div class="card-body p-0">
                         <div class="shop_thumb position-relative">
-                            <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html">
+                            <a class="card-img-top d-block overflow-hidden" href="{{route('details',$product->slug)}}">
                                 <img class="card-img-top" src="{{asset('uploads/product/preview/'.$product->preview)}}" alt="...">
                             </a>
                         </div>
