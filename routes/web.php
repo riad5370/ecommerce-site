@@ -5,8 +5,11 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubcategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VariationController;
+use App\Http\Controllers\CustromerRegisterController;
+use App\Http\Controllers\CustomerLoginController;
 
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,14 @@ use App\Http\Controllers\FrontendController;
 
 Route::get('/',[FrontendController::class,'index'])->name('index');
 Route::get('/product-details/{slug}',[FrontendController::class,'details'])->name('details');
+Route::post('/getsize',[FrontendController::class,'getsize']);
+Route::get('/customer/signup',[FrontendController::class,'signup'])->name('customer.signup');
+
+//customer-Register-Login
+Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
+Route::post('/customer/login',[CustomerLoginController::class,'customerLogin'])->name('customer.login');
+
+Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {

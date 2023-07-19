@@ -68,11 +68,13 @@
                     <div class="prt_03 mb-4">
                         <p>{!!$product_info->short_desp!!}</p>
                     </div>
-                    
+                    <form action="{{route('add.cart')}}" method="POST">
                     <div class="prt_04 mb-2">
                         <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
                         <div class="text-left">
-
+                                @php
+                                    $color = null;
+                                @endphp
                                 @foreach($availabe_colors as $color)
                                     @if($color->color->color_code == null)
                                         <h5 class="text-danger">Not Available</h5>
@@ -83,6 +85,9 @@
                                             <label class="form-option-label rounded-circle" for="white{{$color->color->id}}"><span class="form-option-color rounded-circle" style="background: {{ $color->color->color_code }}"></span></label>
                                         </div>
                                     @endif
+                                    @php
+                                        $color = $color->color->color_code;
+                                    @endphp
                                 @endforeach
                         </div>
                         @error('color_id')
@@ -92,14 +97,24 @@
                     
                     <div class="prt_04 mb-4">
                         <p class="d-flex align-items-center mb-0 text-dark ft-medium">Size:</p>
-                        <div class="text-left pb-0 pt-2">
+                        <div class="text-left pb-0 pt-2" id="size_id">
 
+                        @if ($color != null)
                             @foreach ($sizes as $size)
-                                <div class="form-check size-option form-option form-check-inline mb-2">
-                                    <input class="form-check-input" type="radio" name="size" id="28" checked="">
-                                    <label class="form-option-label" for="28">{{$size->name}}</label>
-                                </div>
+                            <div class="form-check size-option form-option form-check-inline mb-2">
+                                <input class="form-check-input" type="radio" name="size" id="28" checked="">
+                                <label class="form-option-label" for="28">{{$size->name}}</label>
+                            </div>
+                            @endforeach 
+                        @else
+                            @foreach (App\Models\Inventory::where('product_id',$product_info->id)->get() as $size )
+                            <div class="form-check size-option form-option form-check-inline mb-2">
+                            <input class="form-check-input" type="radio" value="{{ $size->size->id }}" name="size_id" id="{{ $size->id }}" {{ $loop->first ? ' checked' : '' }}>
+                            <label class="form-option-label" for={{ $size->id}}>{{ $size->size->name }}</label>
+                            </div>
                             @endforeach
+                        @endif
+                            
                            
                             
 
@@ -124,6 +139,7 @@
                                     <i class="lni lni-shopping-basket mr-2"></i>Add to Cart 
                                 </button>
                             </div>
+                        </form>
                             <div class="col-12 col-lg-auto">
                                 <!-- Wishlist -->
                                 <button class="btn custom-height btn-default btn-block mb-2 text-dark" data-toggle="button">
@@ -598,3 +614,27 @@
 </section>
 <!-- ======================= Customer Features ======================== -->
 @endsection
+@push('js')
+<script>
+    $('.color_id').click(function(){
+        var color_id = $(this).val();
+        var product_id = '{{ $product_info->first()->id }}';
+       
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            url:'/getsize',
+            data:{'color_id':color_id, 'product_id':product_id},
+            success:function(data){
+                $('#size_id').html(data);
+            }
+        })
+
+    })
+</script>
+@endpush
