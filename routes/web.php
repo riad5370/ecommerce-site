@@ -30,8 +30,10 @@ Route::get('/customer/signup',[FrontendController::class,'signup'])->name('custo
 //customer-Register-Login
 Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
 Route::post('/customer/login',[CustomerLoginController::class,'customerLogin'])->name('customer.login');
-
+Route::get('/customer/logout',[CustomerLoginController::class,'Logout'])->name('customer.logout');
+//cart
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
+Route::get('cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {

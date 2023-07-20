@@ -69,6 +69,7 @@
                         <p>{!!$product_info->short_desp!!}</p>
                     </div>
                     <form action="{{route('add.cart')}}" method="POST">
+                        @csrf
                     <div class="prt_04 mb-2">
                         <p class="d-flex align-items-center mb-0 text-dark ft-medium">Color:</p>
                         <div class="text-left">
@@ -90,9 +91,9 @@
                                     @endphp
                                 @endforeach
                         </div>
-                        @error('color_id')
-                        <strong class="text-danger">{{ $message }}</strong>
-                       @enderror
+                            @error('color_id')
+                                <strong class="text-danger">{{ $message }}</strong>
+                            @enderror
                     </div>
                     
                     <div class="prt_04 mb-4">
@@ -108,32 +109,46 @@
                             @endforeach 
                         @else
                             @foreach (App\Models\Inventory::where('product_id',$product_info->id)->get() as $size )
-                            <div class="form-check size-option form-option form-check-inline mb-2">
-                            <input class="form-check-input" type="radio" value="{{ $size->size->id }}" name="size_id" id="{{ $size->id }}" {{ $loop->first ? ' checked' : '' }}>
-                            <label class="form-option-label" for={{ $size->id}}>{{ $size->size->name }}</label>
-                            </div>
+                            @if($size->size->id == 1)
+                                <div class="form-check size-option form-option form-check-inline mb-2">
+                                    <input class="form-check-input" checked type="radio"
+                                        value="{{ $size->size->id }}" name="size_id"
+                                        id="{{ $size->id }}">
+                                    <label class="form-option-label"
+                                        for="{{ $size->id }}">{{ $size->size->name }}</label>
+                                </div>
+                            @else
+                                <div class="form-check size-option form-option form-check-inline mb-2">
+                                <input class="form-check-input" type="radio" value="{{ $size->size->id }}" name="size_id" id="{{ $size->id }}">
+                                <label class="form-option-label" for={{ $size->id}}>{{ $size->size->name }}</label>
+                                </div>
+                            @endif
                             @endforeach
                         @endif
-                            
-                           
-                            
-
                         </div>
+                        @error('size_id')
+                            <strong class="text-danger">{{ $message }}</strong>
+                        @enderror
                     </div>
                     
                     <div class="prt_05 mb-4">
                         <div class="form-row mb-7">
                             <div class="col-12 col-lg-auto">
                                 <!-- Quantity -->
-                                <select class="mb-2 custom-select">
-                                  <option value="1" selected="">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                  <option value="4">4</option>
-                                  <option value="5">5</option>
-                                </select>
+                                <select class="mb-2 custom-select" name="quantity">
+                                    <option value="1" selected="">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    </select>
+                                @error('quantity')
+                                <strong class="text-danger">{{ $message }}</strong>
+                                @enderror
                             </div>
+                           
                             <div class="col-12 col-lg">
+                                <input type="hidden" name="product_id" value="{{ $product_info->id }}">
                                 <!-- Submit -->
                                 <button type="submit" class="btn btn-block custom-height bg-dark mb-2">
                                     <i class="lni lni-shopping-basket mr-2"></i>Add to Cart 
@@ -147,6 +162,9 @@
                                 </button>
                             </div>
                       </div>
+                      @if (session('stock'))
+                        <div class="alert alert-warning">{{ session('stock') }}</div>
+                     @endif
                     </div>
                     
                     <div class="prt_06">
@@ -410,143 +428,37 @@
                 <div class="slide_items">
                     
                     <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/16.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Running Set</a></h5>
-                                        <div class="elis_rty"><span class="ft-bold fs-md text-dark">$119.00</span></div>
+                    @foreach ($related_products as $related)
+                            <div class="single_itesm">
+                                <div class="product_grid card b-0 mb-0">
+                                    @if ($related->discount != null)
+                                     <div class="badge bg-danger text-white position-absolute ft-regular ab-right text-upper">{{$related->discount}}%</div>
+                                    @else
+                                    <div class="badge bg-info text-white position-absolute ft-regular ab-right text-upper">New</div>
+                                    @endif
+                                    <div class="card-body p-0">
+                                        <div class="shop_thumb position-relative">
+                                            <a class="card-img-top d-block overflow-hidden"
+                                                href="{{ route('details', $related->slug) }}"><img class="card-img-top" src="{{ asset('uploads/product/preview') }}/{{ $related->preview }}" alt="..."></a>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
+                                        <div class="text-left">
+                                            <div class="text-center">
+                                                <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a
+                                                        href="{{ route('details', $related->slug) }}">{{ $related->name }}</a></h5>
+                                                <div class="elis_rty">
+                                                    @if($related->discount != null)
+                                                        <span class="ft-medium text-muted line-through fs-md mr-2">BDT {{$related->price}}</span>
+                                                    @endif
+                                                    <span class="ft-bold text-dark fs-sm">BDT {{$related->after_discount}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="badge bg-info text-white position-absolute ft-regular ab-left text-upper">New</div>
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/17.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Formal Men Lowers</a></h5>
-                                        <div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$129.00</span><span class="ft-bold theme-cl fs-md">$79.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/18.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Running Suit</a></h5>
-                                        <div class="elis_rty"><span class="ft-bold fs-md text-dark">$80.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="badge bg-warning text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/19.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Half Fancy Lady Dress</a></h5>
-                                        <div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$149.00</span><span class="ft-bold theme-cl fs-md">$110.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/20.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Flix Flox Jeans</a></h5>
-                                        <div class="elis_rty"><span class="text-muted ft-medium line-through mr-2">$90.00</span><span class="ft-bold theme-cl fs-md">$49.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="badge bg-danger text-white position-absolute ft-regular ab-left text-upper">Hot</div>
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/21.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Fancy Salwar Suits</a></h5>
-                                        <div class="elis_rty"><span class="ft-bold fs-md text-dark">$114.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- single Item -->
-                    <div class="single_itesm">
-                        <div class="product_grid card b-0 mb-0">
-                            <div class="badge bg-success text-white position-absolute ft-regular ab-left text-upper">Sale</div>
-                            <div class="card-body p-0">
-                                <div class="shop_thumb position-relative">
-                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/product/22.png" alt="..."></a>
-                                </div>
-                            </div>
-                            <div class="card-footer b-0 p-3 pb-0 d-flex align-items-start justify-content-center">
-                                <div class="text-left">
-                                    <div class="text-center">
-                                        <h5 class="fw-bolder fs-md mb-0 lh-1 mb-1"><a href="shop-single-v1.html">Collot Full Dress</a></h5>
-                                        <div class="elis_rty"><span class="ft-bold theme-cl fs-md text-dark">$120.00</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -637,4 +549,27 @@
 
     })
 </script>
+
+
+@if (session('success'))
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        icon: 'success',
+        title: '{{ session('success') }}'
+    })
+</script>
+@endif
+
 @endpush

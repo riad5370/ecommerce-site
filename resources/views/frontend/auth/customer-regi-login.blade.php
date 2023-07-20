@@ -27,6 +27,9 @@
                 <div class="mb-3">
                     <h3>Login</h3>
                 </div>
+                @if(session('warning'))
+                <div class="alert alert-warning">{{session('warning')}}</div>
+                @endif
                 @if(session('error'))
                 <div class="alert alert-warning">{{session('error')}}</div>
                 @endif

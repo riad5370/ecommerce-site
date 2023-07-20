@@ -17,4 +17,8 @@ class CustomerLoginController extends Controller
             return back()->withError('Whoops! Something went wrong.These credentials do not match our records');
         }
     }
+    public function Logout(){
+        Auth::guard('customerlogin')->logout();
+        return back();
+    }
 }

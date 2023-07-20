@@ -18,6 +18,9 @@ class FrontendController extends Controller
     }
     public function details($slug){
         $product_info = Product::where('slug',$slug)->first();
+
+        $related_products = Product::where('category_id', $product_info->category_id)->where('id', '!=', $product_info->id)->get();
+
         $thamnails = Thumbnail::where('product_id',$product_info->id)->get();
         $availabe_colors = Inventory::where('product_id', $product_info->id)
         ->groupBy('color_id')
@@ -27,7 +30,8 @@ class FrontendController extends Controller
             'product_info'=>$product_info,
             'thamnails'=>$thamnails,
             'availabe_colors'=>$availabe_colors,
-            'sizes'=>$sizes 
+            'sizes'=>$sizes,
+            'related_products'=>$related_products
         ]);
     }
     public function getsize(Request $request){

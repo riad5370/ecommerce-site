@@ -22,9 +22,23 @@
                     </ul>
                 </div>
                 
-                <div class="currency-selector dropdown js-dropdown float-right mr-3">
-                    <a href="{{route('customer.signup')}}" class="text-muted medium"><i class="lni lni-user mr-1"></i>Sign In / Register</a>
-                </div>
+                @auth('customerlogin')
+				    <div class="dropdown show">
+						<a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    {{ Auth::guard('customerlogin')->user()->name }}
+						</a>
+								
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<a class="dropdown-item" href="">My Account</a>
+							<a class="dropdown-item" href="{{ route('customer.logout') }}">Logout</a>
+						</div>
+					</div>
+
+				@else
+					<div class="currency-selector dropdown js-dropdown float-right mr-3">
+						<a href="{{ route('customer.signup') }}" class="text-muted medium"><i class="lni lni-user mr-1"></i>Sign In / Register</a>
+					</div>
+				@endauth
             </div>
             
         </div>
@@ -69,7 +83,9 @@
                             <li>
                                 <a href="#" onclick="openCart()">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">3</span>
+                                        <i class="fas fa-shopping-basket fs-lg"></i><span class="dn-counter theme-bg">
+                                            {{ App\Models\Cart::where('customer_id', Auth::guard('customerlogin')->id())->count() }}
+                                        </span>
                                     </div>
                                 </a>
                             </li>
