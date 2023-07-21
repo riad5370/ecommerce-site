@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CouponController;
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,12 @@ Route::get('/customer/logout',[CustomerLoginController::class,'Logout'])->name('
 //cart
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
 Route::get('cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
+Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update');
+
+//product-checkout
+Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
+Route::post('/getCity',[CheckoutController::class,'getCity']);
+Route::post('/checkout/store',[CheckoutController::class,'store'])->name('checkout.store');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {

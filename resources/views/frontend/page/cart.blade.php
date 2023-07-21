@@ -1,8 +1,6 @@
 @extends('frontend.include.master')
 
 @section('body')
-
-
 @if (App\Models\Cart::where('customer_id', Auth::guard('customerlogin')->id())->count() == 0)
     <section class="middle">
         <div class="container">
@@ -34,7 +32,7 @@
             
             <div class="row justify-content-between">
                 <div class="col-12 col-lg-7 col-md-12">
-                    <form action="" method="POST">
+                    <form action="{{ route('cart.update') }}" method="POST">
                         @csrf
                         <ul class="list-group list-group-sm list-group-flush-y list-group-flush-x mb-4">
                             @php
@@ -134,7 +132,7 @@
                             'discount'=>$final_discount,
                         ])
                     @endphp
-                    <a class="btn btn-block btn-dark mb-3" href="">Proceed to Checkout</a>
+                    <a class="btn btn-block btn-dark mb-3" href="{{ route('checkout') }}">Proceed to Checkout</a>
                     
                     <a class="btn-link text-dark ft-medium" href="shop.html">
                     <i class="ti-back-left mr-2"></i> Continue Shopping

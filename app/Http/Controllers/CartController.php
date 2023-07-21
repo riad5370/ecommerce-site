@@ -49,4 +49,13 @@ class CartController extends Controller
         cart::find($id)->delete();
         return back();
     }
+    public function cartUpdate(Request $request){
+      $carts = $request->all();
+      foreach($carts['quantity'] as $cart_id=>$quantity){
+        cart::find($cart_id)->update([
+            'quantity'=>$quantity,
+        ]);
+      }
+      return back();
+   }
 }
