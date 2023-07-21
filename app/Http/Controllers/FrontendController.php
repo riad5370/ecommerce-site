@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Thumbnail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -26,7 +30,7 @@ class FrontendController extends Controller
         ->groupBy('color_id')
         ->selectRaw('count(*) as total, color_id')->get();
         $sizes = Size::all();
-        return view('frontend.product.details',[
+        return view('frontend.page.details',[
             'product_info'=>$product_info,
             'thamnails'=>$thamnails,
             'availabe_colors'=>$availabe_colors,
@@ -50,5 +54,40 @@ class FrontendController extends Controller
     }
     public function signup(){
         return view('frontend.auth.customer-regi-login');
+    }
+
+    function cart(Request $request)
+    {
+        $coupon = $request->coupon;
+        $message = null;
+        $type = null;
+
+        if($coupon == ''){
+            $discount = 0;
+        }
+        else {
+            if(Coupon::where('name', $coupon)->exists()){
+                if(Carbon::now()->format('Y-m-d') > Coupon::where('name', $coupon)->first()->expire){
+                    $discount = 0;
+                    $message = 'Coupon Code Expired!';
+                }
+                else{
+                    $discount = Coupon::where('name', $coupon)->first()->discount;
+                    $type = Coupon::where('name', $coupon)->first()->type;
+                    
+                } 
+            }
+            else{
+                $discount = 0;
+                $message = 'Invalid Coupon Code!';
+            }
+        }
+        $carts = cart::where('customer_id', Auth::guard('customerlogin')->id())->get();
+        return view('frontend.page.cart',[
+            'carts'=>$carts,
+            'message'=>$message,
+            'discount'=>$discount,
+            'type'=>$type,
+        ]);
     }
 }

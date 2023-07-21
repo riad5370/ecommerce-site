@@ -211,11 +211,11 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li>
-                                <a href="coupon-list.html">Coupon List</a>
+                                <a href="{{route('coupons.index')}}">Coupon List</a>
                             </li>
   
                             <li>
-                                <a href="create-coupon.html">Create Coupon</a>
+                                <a href="{{route('coupons.create')}}">Create Coupon</a>
                             </li>
                         </ul>
                     </li>

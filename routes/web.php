@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\CustromerRegisterController;
 use App\Http\Controllers\CustomerLoginController;
+use App\Http\Controllers\Admin\CouponController;
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CartController;
@@ -26,6 +27,7 @@ Route::get('/',[FrontendController::class,'index'])->name('index');
 Route::get('/product-details/{slug}',[FrontendController::class,'details'])->name('details');
 Route::post('/getsize',[FrontendController::class,'getsize']);
 Route::get('/customer/signup',[FrontendController::class,'signup'])->name('customer.signup');
+Route::get('/cart',[FrontendController::class,'cart'])->name('cart.view');
 
 //customer-Register-Login
 Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
@@ -54,5 +56,9 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     //product-variation
     Route::get('/product/variation',[VariationController::class,'productVariation'])->name('products.variation');
     Route::post('/product/variation/store',[VariationController::class,'variationStore'])->name('variation.store');
+    // coupon
+    Route::resource('/coupons',CouponController::class);
+
+
 
 });

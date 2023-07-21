@@ -108,7 +108,7 @@
             
             <div class="cart_action px-3 py-3">
                 <div class="form-group">
-                    <a href="" class="btn d-block full-width btn-dark-light">View Cart</a>
+                    <a href="{{ route('cart.view') }}" class="btn d-block full-width btn-dark-light">View Cart</a>
                 </div>
             </div>
             
