@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceMail;
 use App\Models\BillingDetails;
 use App\Models\Cart;
 use App\Models\City;
@@ -13,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -81,6 +83,8 @@ class CheckoutController extends Controller
             ]);
             Inventory::where('product_id',$cart->product_id)->where('color_id',$cart->color_id)->where('size_id',$cart->size_id)->decrement('quantity',$cart->quantity);
         }
+        // send invoice mail
+        Mail::to($request->email)->send(new InvoiceMail($order_id));
         
         //clear cart after order
         Cart::where('customer_id',Auth::guard('customerlogin')->id())->delete();
