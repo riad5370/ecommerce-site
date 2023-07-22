@@ -155,7 +155,7 @@
                         </a>
                         <ul class="sidebar-submenu">
                             <li>
-                                <a href="role.html">All roles</a>
+                                <a href="{{ route('role') }}">All roles</a>
                             </li>
                             <li>
                                 <a href="create-role.html">Create Role</a>

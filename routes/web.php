@@ -9,12 +9,13 @@ use App\Http\Controllers\CustromerRegisterController;
 use App\Http\Controllers\CustomerLoginController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\OrderController;
-
+use App\Http\Controllers\Admin\RoleController;
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CustomerPasswordResetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,14 @@ Route::get('/my/order',[FrontendController::class,'myOrder'])->name('my.order');
 Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
 Route::post('/customer/login',[CustomerLoginController::class,'customerLogin'])->name('customer.login');
 Route::get('/customer/logout',[CustomerLoginController::class,'Logout'])->name('customer.logout');
+
+//password-Reset
+Route::get('/forgot-password',[CustomerPasswordResetController::class,'index'])->name('forgot.password');
+Route::Post('/password-reset-request',[CustomerPasswordResetController::class,'passResetRequest'])->name('reset.request');
+Route::get('/password-reset-form/{token}',[CustomerPasswordResetController::class,'passResetForm'])->name('pass.reset.form');
+Route::Post('/password-reset',[CustomerPasswordResetController::class,'passwordReset'])->name('password.reset');
+
+
 
 //customer-profile
 Route::get('/customer/profile',[CustomerController::class,'profile'])->name('customer.profile');
@@ -82,6 +91,20 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     //order
     Route::get('/orders',[OrderController::class,'orders'])->name('orders');
     Route::post('/order/status',[OrderController::class,'orderStatus'])->name('order.status');
+
+    //role-manager-permission
+    Route::get('/role',[RoleController::class,'role'])->name('role');
+        //permission
+    Route::post('/permission/store',[RoleController::class,'storePermission'])->name('permission.store');
+        //Role-as-permission
+    Route::post('/role/store',[RoleController::class,'storeRole'])->name('role.store');
+    Route::get('/role/delete/permission/{role_id}',[RoleController::class,'delete_permission'])->name('delete.permission');
+        //user-asign-role-permission
+    Route::post('/assign/role',[RoleController::class,'assignRole'])->name('assign.role');
+    Route::get('/remove/role/{id}',[RoleController::class,'removeRole'])->name('remove.role');
+    Route::get('/role/permission/edit/{id}',[RoleController::class,'user_role_permission_edit'])->name('edit.user.permission');
+    Route::post('/permission/update',[RoleController::class,'permissionUpdate'])->name('permission.update');
+   
 
 
 

@@ -30,6 +30,9 @@
                 @if(session('warning'))
                 <div class="alert alert-warning">{{session('warning')}}</div>
                 @endif
+                @if(session('resetsucces'))
+                <div class="alert alert-success">{{session('resetsucces')}}</div>
+                @endif
                 @if(session('error'))
                 <div class="alert alert-warning">{{session('error')}}</div>
                 @endif
@@ -48,7 +51,7 @@
                     <div class="form-group">
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="eltio_k2">
-                                <a href="#">Lost Your Password?</a>
+                                <a href="{{route('forgot.password')}}">Lost Your Password?</a>
                             </div>	
                         </div>
                     </div>

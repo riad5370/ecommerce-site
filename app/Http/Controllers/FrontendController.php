@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
     public function index(){
-        $products = Product::all();
+        $products = Product::paginate(16);
         return view('frontend.index',[
             'products'=>$products
         ]);
