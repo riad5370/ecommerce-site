@@ -28,16 +28,19 @@
 							<div class="d-block border rounded">
 								<div class="dashboard_author px-2 py-5">
                                     <div class="dash_auth_thumb circle p-1 border d-inline-flex mx-auto mb-2">
+                                        @auth('customerlogin')
                                         @if(Auth::guard('customerlogin')->user()->photo == null)
                                             <img width="100" src="{{ Avatar::create(Auth::guard('customerlogin')->user()->name)->toBase64() }}" alt="">
                                         @else
                                             <img src="{{ asset('uploads/customer/'. Auth::guard('customerlogin')->user()->photo) }}" class="img-fluid circle" width="100" alt="" />
                                         @endif
-                                        
+                                        @endauth
                                     </div>
                                     <div class="dash_caption">
+                                        @auth('customerlogin')
                                         <h4 class="fs-md ft-medium mb-0 lh-1">{{ Auth::guard('customerlogin')->user()->name }}</h4>
                                         <span class="text-muted smalls">{{ Auth::guard('customerlogin')->user()->country }}</span>
+                                        @endauth
                                     </div>
                                 </div>
 								
@@ -65,7 +68,7 @@
                                         </div>
                                       
                                         <div>
-                                            <a href="" class="bg-success text-white px-2 py-1">Download Invoice</a>
+                                            <a href="{{ route('download.invoice',$order->id) }}" class="bg-success text-white px-2 py-1">Download Invoice</a>
                                         </div>
                                         <div class="">
                                             <p class="mb-1 p-0"><span class="text-muted">Status</span></p>

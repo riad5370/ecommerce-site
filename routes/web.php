@@ -43,6 +43,9 @@ Route::get('/customer/logout',[CustomerLoginController::class,'Logout'])->name('
 Route::get('/customer/profile',[CustomerController::class,'profile'])->name('customer.profile');
 Route::post('/customer/profile-update',[CustomerController::class, 'profileUpdate'])->name('profile.update');
 
+//customer-download-invoice
+Route::get('/order/download/invoice/{order_id}',[CustomerController::class,'downloadInvoice'])->name('download.invoice');
+
 //cart
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
 Route::get('cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');

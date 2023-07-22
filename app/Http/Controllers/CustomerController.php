@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BillingDetails;
 use App\Models\CustolerLogin;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use PDF;
 
 class CustomerController extends Controller
 {
@@ -73,5 +77,18 @@ class CustomerController extends Controller
                 return back()->with('failled','current password is wrong!');
             }
         }
+    }
+
+    //invoice-download
+    public function downloadInvoice($order_id){
+        $order_info = Order::find($order_id);
+        $billing_info = BillingDetails::where('order_id',$order_info->order_id)->get();
+        $order_product = OrderProduct::where('order_id',$order_info->order_id)->get();
+        $invoice = PDF::loadView('invoice.download-invoice', [
+            'order_info'=>$order_info,
+            'billing_info'=>$billing_info,
+            'order_product'=>$order_product,
+        ]);
+        return $invoice->download('invoice.pdf');
     }
 }
