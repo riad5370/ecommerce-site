@@ -19,6 +19,6 @@ class CustomerLoginController extends Controller
     }
     public function Logout(){
         Auth::guard('customerlogin')->logout();
-        return back();
+        return Redirect::route('customer.signup');
     }
 }

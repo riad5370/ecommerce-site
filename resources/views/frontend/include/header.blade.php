@@ -29,7 +29,7 @@
 						</a>
 								
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<a class="dropdown-item" href="">My Account</a>
+							<a class="dropdown-item" href="{{ route('customer.profile') }}">My Account</a>
 							<a class="dropdown-item" href="{{ route('customer.logout') }}">Logout</a>
 						</div>
 					</div>

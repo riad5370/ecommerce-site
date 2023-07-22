@@ -30,6 +30,7 @@
     <script src="{{asset('backend')}}/assets/js/ratio.js"></script>
     <!-- sidebar effect -->
     <script src="{{asset('backend')}}/assets/js/sidebareffect.js"></script>
+
     <!-- Theme js -->
     <script src="{{asset('backend')}}/assets/js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script><!-- latest js -->

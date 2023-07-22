@@ -8,10 +8,13 @@ use App\Http\Controllers\Admin\VariationController;
 use App\Http\Controllers\CustromerRegisterController;
 use App\Http\Controllers\CustomerLoginController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\OrderController;
+
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +32,17 @@ Route::get('/product-details/{slug}',[FrontendController::class,'details'])->nam
 Route::post('/getsize',[FrontendController::class,'getsize']);
 Route::get('/customer/signup',[FrontendController::class,'signup'])->name('customer.signup');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart.view');
+Route::get('/my/order',[FrontendController::class,'myOrder'])->name('my.order');
 
 //customer-Register-Login
 Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
 Route::post('/customer/login',[CustomerLoginController::class,'customerLogin'])->name('customer.login');
 Route::get('/customer/logout',[CustomerLoginController::class,'Logout'])->name('customer.logout');
+
+//customer-profile
+Route::get('/customer/profile',[CustomerController::class,'profile'])->name('customer.profile');
+Route::post('/customer/profile-update',[CustomerController::class, 'profileUpdate'])->name('profile.update');
+
 //cart
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
 Route::get('cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
@@ -43,6 +52,7 @@ Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.upda
 Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
 Route::post('/getCity',[CheckoutController::class,'getCity']);
 Route::post('/checkout/store',[CheckoutController::class,'store'])->name('checkout.store');
+Route::get('/order/success/{abc}',[CheckoutController::class,'orderSuccess'])->name('order.success');
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {
@@ -65,6 +75,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     Route::post('/product/variation/store',[VariationController::class,'variationStore'])->name('variation.store');
     // coupon
     Route::resource('/coupons',CouponController::class);
+
+    //order
+    Route::get('/orders',[OrderController::class,'orders'])->name('orders');
+    Route::post('/order/status',[OrderController::class,'orderStatus'])->name('order.status');
+
 
 
 

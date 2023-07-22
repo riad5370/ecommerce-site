@@ -11,4 +11,11 @@ class OrderProduct extends Model
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
     }
+    function size(){
+        return $this->belongsTo(Size::class,'size_id');
+    }
+    function color(){
+        return $this->belongsTo(Color::class,'color_id');
+    }
+    
 }

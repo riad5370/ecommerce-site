@@ -89,9 +89,20 @@ class CheckoutController extends Controller
         //clear cart after order
         Cart::where('customer_id',Auth::guard('customerlogin')->id())->delete();
 
+        $abc = substr($order_id, 1,13);
+        return redirect()->route('order.success',$abc)->with('success','adaa');
         
         }
-        return back();
         
+    }
+    public function orderSuccess($abc){
+        if(session('success')){
+            return view('frontend.page.order-success',[
+                'order_id'=>$abc,
+            ]);
+        }
+        else {
+            abort(404);
+        }
     }
 }

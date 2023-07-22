@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\Coupon;
 use App\Models\Inventory;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Size;
 use App\Models\Thumbnail;
@@ -89,5 +90,10 @@ class FrontendController extends Controller
             'discount'=>$discount,
             'type'=>$type,
         ]);
+    }
+    //customer-order-page 
+    public function myOrder(){
+        $myorders = Order::where('customer_id',Auth::guard('customerlogin')->id())->get();
+        return view('frontend.page.my-order',compact('myorders'));
     }
 }
