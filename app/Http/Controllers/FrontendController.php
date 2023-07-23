@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Coupon;
 use App\Models\Inventory;
 use App\Models\Order;
+use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\Size;
+use App\Models\Subcategory;
 use App\Models\Thumbnail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,11 +19,30 @@ use Illuminate\Support\Facades\Auth;
 class FrontendController extends Controller
 {
     public function index(){
+        $categories = Category::all();
         $products = Product::paginate(16);
+
+        $best_selling_product = OrderProduct::groupBy('product_id')
+        ->selectRaw('sum(quantity) as sum, product_id')
+        ->orderBy('quantity','Desc')
+        ->havingRaw('sum >= 1')
+        ->get();
         return view('frontend.index',[
-            'products'=>$products
+            'products'=>$products,
+            'best_selling_product'=>$best_selling_product,
+            'categories' => $categories
         ]);
     }
+
+    public function categoryProduct($category_id){
+        $category_name = Category::find($category_id);
+        $category_products = Product::where('category_id', $category_id)->paginate('16');
+        return view('frontend.page.category-product',[
+            'category_products'=>$category_products,
+            'category_name' => $category_name
+        ]);
+    }
+
     public function details($slug){
         $product_info = Product::where('slug',$slug)->first();
 
@@ -30,13 +52,23 @@ class FrontendController extends Controller
         $availabe_colors = Inventory::where('product_id', $product_info->id)
         ->groupBy('color_id')
         ->selectRaw('count(*) as total, color_id')->get();
+
+        //customer-review
+        $reviews = OrderProduct::where('product_id',$product_info->id)->whereNotNull('review')->get();
+        $total_review = OrderProduct::where('product_id',$product_info->id)->whereNotNull('review')->count();
+        $total_star = OrderProduct::where('product_id',$product_info->id)->whereNotNull('review')->sum('star');
+
+        //product-size
         $sizes = Size::all();
         return view('frontend.page.details',[
             'product_info'=>$product_info,
             'thamnails'=>$thamnails,
             'availabe_colors'=>$availabe_colors,
             'sizes'=>$sizes,
-            'related_products'=>$related_products
+            'related_products'=>$related_products,
+            'reviews'=> $reviews,
+            'total_review'=>$total_review,
+            'total_star'=>$total_star
         ]);
     }
     public function getsize(Request $request){

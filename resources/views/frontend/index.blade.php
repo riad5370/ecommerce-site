@@ -11,12 +11,10 @@
                     
                     <div class="killore--block-link-content">
                         <ul>
-                            <li><a href="javascript:void(0);"><i class="fas fa-tshirt"></i>Fashion</a></li>
-                            <li><a href="javascript:void(0);"><i class="fas fa-tv"></i>Electronics</a></li>
-                            <li><a href="javascript:void(0);"><i class="fas fa-gift"></i>Gifts & Cards</a></li>
-                            <li><a href="javascript:void(0);"><i class="fas fa-leaf"></i>Home Decoration</a></li>
-                            <li><a href="javascript:void(0);"><i class="fas fa-headphones-alt"></i>Headphones</a></li>
-                            <li><a href="javascript:void(0);"><i class="fas fa-football-ball"></i>Sports Items</a></li>
+                            @foreach($categories as $categori)
+                                <li style="font-family: fontawesome"><a href="{{ route('category.product',$categori->id) }}"><i class="fas {{$categori->icon }}"></i>{{$categori->name}}</a>    
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
@@ -173,22 +171,13 @@
             </div>  
             @endforeach
             {{$products->links()}} 
-        </div>
-        
-        {{-- <div class="row justify-content-center">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                <div class="position-relative text-center">
-                    <a href="shop-style-1.html" class="btn stretched-link borders">Explore More<i class="lni lni-arrow-right ml-2"></i></a>
-                </div>
-            </div>
-        </div> --}}
-        
+        </div>  
     </div>
 </section>
 <!-- ======================= Product List ======================== -->
 
 <!-- ======================= Brand Start ============================ -->
-<section class="py-3 br-top">
+{{-- <section class="py-3 br-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12">
@@ -204,26 +193,9 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- ======================= Brand Start ============================ -->
 
-<!-- ======================= Tag Wrap Start ============================ -->
-<section class="bg-cover" style="background:url({{asset('frontend')}}/img/e-middle-banner.png) no-repeat;">
-    <div class="ht-60"></div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10 col-sm-12">
-                <div class="tags_explore text-center">
-                    <h2 class="mb-0 text-white ft-bold">Big Sale Up To 70% Off</h2>
-                    <p class="text-light fs-lg mb-4">Exclussive Offers For Limited Time</p><p>
-                    <a href="#" class="btn btn-lg bg-white px-5 text-dark ft-medium">Explore Your Order</a>
-                </p></div>
-            </div>
-        </div>
-    </div>
-    <div class="ht-60"></div>
-</section>
-<!-- ======================= Tag Wrap Start ============================ -->
 
 <!-- ======================= All Category ======================== -->
 <section class="middle">
@@ -239,91 +211,15 @@
         </div>
         
         <div class="row align-items-center justify-content-center">
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/headphones.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Headphones</a></h6></div>
+            @foreach($categories as $category)
+                <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                    <div class="cats_side_wrap text-center mx-auto mb-3">
+                        <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><i style="font-size: 30px;width:70px;height:70px;line-height:70px;" class="fas {{$category->icon}}"></i></a></div></div>
+                        <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">{{$category->name}}</a></h6></div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/watch.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Watches</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/washing-machine.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Washing Machine</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/cell-phone.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">iPhones</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/safety-goggles.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Goggles</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/camera.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Video Camera</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/fashion.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Men's Wear</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/tshirt.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Kid's Wear</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/accessories.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Accessories</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/sneakers.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Men's Shoes</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/television.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Television</a></h6></div>
-                </div>
-            </div>
-            
-            <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
-                <div class="cats_side_wrap text-center mx-auto mb-3">
-                    <div class="sl_cat_01"><div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border"><a href="javascript:void(0);" class="d-block"><img src="{{asset('frontend')}}/img/pant.png" class="img-fluid" width="40" alt=""></a></div></div>
-                    <div class="sl_cat_02"><h6 class="m-0 ft-medium fs-sm"><a href="javascript:void(0);">Men's Pants</a></h6></div>
-                </div>
-            </div>
+            @endforeach
         </div>
-        
     </div>
 </section>
 <!-- ======================= All Category ======================== -->
@@ -419,73 +315,60 @@
                 <div class="ftr-content">
                 
                     <!-- Single Item -->
-                    <div class="product_grid row">
-                        <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/shop/1.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                            <div class="text-left mfliud">
-                                <div class="elso_titl"><span class="small">Mobiles</span></div>
-                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Zoomio iPhones</a></h5>
-                                <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99 - $129</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Single Item -->
-                    <div class="product_grid row">
-                        <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/shop/2.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                            <div class="text-left mfliud">
-                                <div class="elso_titl"><span class="small">TV/LED</span></div>
-                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">32 Inch Smart LED</a></h5>
-                                <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$799 - $1200</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Single Item -->
-                    <div class="product_grid row">
-                        <div class="col-xl-4 col-lg-5 col-md-5 col-4">
-                            <div class="shop_thumb position-relative">
-                                <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img class="card-img-top" src="{{asset('frontend')}}/img/shop/10.png" alt="..."></a>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
-                            <div class="text-left mfliud">
-                                <div class="elso_titl"><span class="small">Headphone</span></div>
-                                <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="shop-single-v1.html">Ziomi Headphone</a></h5>
-                                <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star filled"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$49 - $110</span></div>
-                            </div>
-                        </div>
-                    </div>
+                     <!-- Single Item -->
+                     @foreach ($best_selling_product as $best_product)
+                     @if($best_product->product->category)
+                      <div class="product_grid row">
+                          <div class="col-xl-4 col-lg-5 col-md-5 col-4">
+                              <div class="shop_thumb position-relative">
+                                  <a class="card-img-top d-block overflow-hidden" href="{{ route('details',$best_product->product->slug) }}"><img class="card-img-top" src="{{ asset('uploads/product/preview/'.$best_product->product->preview) }}" alt="..."></a>
+                              </div>
+                          </div>
+                          <div class="col-xl-8 col-lg-7 col-md-7 col-8 pl-0">
+                              
+                              <div class="text-left mfliud">
+                                  <div class="elso_titl"><span class="small">
+                                  
+                                  {{$best_product->product->category->name }}
+                                 
+                                  </span></div>
+                                  <h5 class="fs-md mb-0 lh-1 mb-1 ft-medium"><a href="{{ route('details',$best_product->product->slug) }}">{{ $best_product->product->name }}</a></h5>
+                                  <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0">
+                                      @php
+                                          $star = App\Models\OrderProduct::where('product_id',$best_product->product_id)->whereNotNull('review')->sum('star');
+
+                                          $total_review = App\Models\OrderProduct::where('product_id',$best_product->product_id)->whereNotNull('review')->count();
+
+                                          $avg_rating = 0;
+                                          if($total_review != 0){
+                                              $avg_rating = round($star / $total_review);
+                                          }
+                                      @endphp
+              
+                                          
+                                      @php
+                                           for($x = 1; $x <= $avg_rating; $x++){
+                                              echo "<i class='fas fa-star filled'></i>";
+                                          }
+                                          for($i = $avg_rating + 1; $i <= 5; $i++){
+                                              echo "<i class='fas fa-star'></i>";
+                                          }
+                                      @endphp
+                                      
+                                      
+                                  </div>
+                                  <div class="elis_rty">
+                                      @if($best_product->product->discount != null)
+                                           <span class="ft-bold text-muted line-through fs-sm mr-2">BDT{{ $best_product->product->price }}</span>
+                                      @endif
+                                      <span class="ft-bold text-muted fs-sm"> BDT{{ $best_product->product->after_discount }}</span>
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      @endif
+                  @endforeach
                     
                 </div>
             </div>

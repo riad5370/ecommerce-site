@@ -27,9 +27,9 @@
                                 @foreach($inventories as $key=>$inventory)
                                 <tr>
                                     <td>{{$key+1}}</td>
-                                    <td>{{$inventory->product->name}}</td>
-                                    <td>{{$inventory->color->name}}</td>
-                                    <td>{{$inventory->size->name}}</td>
+                                    <td>{{ $inventory->product->name ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->color->name ?? 'N/A' }}</td>
+                                    <td>{{ $inventory->size->name ?? 'N/A' }}</td>
                                     <td>{{$inventory->quantity}}</td>
                                 </tr>
                             @endforeach

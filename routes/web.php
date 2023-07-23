@@ -35,6 +35,7 @@ Route::post('/getsize',[FrontendController::class,'getsize']);
 Route::get('/customer/signup',[FrontendController::class,'signup'])->name('customer.signup');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart.view');
 Route::get('/my/order',[FrontendController::class,'myOrder'])->name('my.order');
+Route::get('/category/product/{category_id}',[FrontendController::class,'categoryProduct'])->name('category.product');
 
 //customer-Register-Login
 Route::post('/customer/register',[CustromerRegisterController::class,'customerRegister'])->name('customer.register');
@@ -55,6 +56,9 @@ Route::post('/customer/profile-update',[CustomerController::class, 'profileUpdat
 
 //customer-download-invoice
 Route::get('/order/download/invoice/{order_id}',[CustomerController::class,'downloadInvoice'])->name('download.invoice');
+
+//review
+Route::post('/review/store',[CustomerController::class,'reviewStore'])->name('review.store');
 
 //cart
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');

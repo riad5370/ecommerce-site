@@ -91,4 +91,19 @@ class CustomerController extends Controller
         ]);
         return $invoice->download('invoice.pdf');
     }
+
+    //review
+    public function reviewStore(Request $request){
+        $orderProduct = OrderProduct::where('customer_id', $request->customer_id)
+                    ->where('product_id', $request->product_id)
+                    ->first();
+
+            if ($orderProduct) {
+                $orderProduct->update([
+                    'review' => $request->review,
+                    'star' => $request->star,
+                ]);
+            }
+            return back();
+    }
 }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderProduct extends Model
 {
     use HasFactory;
+    protected $guarded = ['id'];
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
     }
@@ -16,6 +17,9 @@ class OrderProduct extends Model
     }
     function color(){
         return $this->belongsTo(Color::class,'color_id');
+    }
+    function rel_to_customer(){
+        return $this->belongsTo(CustolerLogin::class,'customer_id');
     }
     
 }
