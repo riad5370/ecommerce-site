@@ -57,14 +57,14 @@
                             </a>
                         </div>
                         <div class="headd-sty-02 ml-3">
-                            <form class="bg-white rounded-md border-bold">
+                            <div class="bg-white rounded-md border-bold">
                                 <div class="input-group">
-                                    <input type="text" class="form-control custom-height b-0" placeholder="Search for products..." />
+                                    <input type="text" name="search_input" id="search_input" class="form-control custom-height b-0" value="{{ @$_GET['q'] }}" placeholder="Search for products..." />
                                     <div class="input-group-append">
-                                        <div class="input-group-text"><button class="btn bg-white text-danger custom-height rounded px-3" type="button"><i class="fas fa-search"></i></button></div>
+                                        <div class="input-group-text"><button id="search_btn" class="btn bg-white text-danger custom-height rounded px-3" type="submit"><i class="fas fa-search"></i></button></div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     <div class="headd-sty-last">

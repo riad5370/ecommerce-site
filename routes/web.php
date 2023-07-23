@@ -16,6 +16,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPasswordResetController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,9 @@ Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout')
 Route::post('/getCity',[CheckoutController::class,'getCity']);
 Route::post('/checkout/store',[CheckoutController::class,'store'])->name('checkout.store');
 Route::get('/order/success/{abc}',[CheckoutController::class,'orderSuccess'])->name('order.success');
+
+//searching..................
+Route::get('/search',[SearchController::class,'search'])->name('search'); 
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {
