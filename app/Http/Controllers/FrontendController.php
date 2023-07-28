@@ -16,9 +16,27 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Cookie;
+use Arr;
+
 class FrontendController extends Controller
 {
     public function index(){
+        //cookies
+        $resent_viewed_product = json_decode(Cookie::get('recent_view'), true);
+
+        if ($resent_viewed_product == null) {
+            $resent_viewed_product = [];
+        }
+
+        $after_unique = array_unique($resent_viewed_product);
+        $resent_viewed_products = Product::whereIn('id', $after_unique)
+                                 ->orderByDesc('created_at')
+                                 ->limit(4)
+                                 ->get();
+
+
+        
         $categories = Category::all();
         $products = Product::paginate(16);
 
@@ -30,7 +48,8 @@ class FrontendController extends Controller
         return view('frontend.index',[
             'products'=>$products,
             'best_selling_product'=>$best_selling_product,
-            'categories' => $categories
+            'categories' => $categories,
+            'resent_viewed_product'=>$resent_viewed_products
         ]);
     }
 
@@ -60,6 +79,18 @@ class FrontendController extends Controller
 
         //product-size
         $sizes = Size::all();
+
+        //cookies
+        $product_id = $product_info->id;
+        $al = Cookie::get('recent_view');
+        if(!$al){
+            $al = "[]";
+        }
+        $all_info = json_decode($al,true);
+        $all_info = Arr::prepend($all_info,$product_id);
+        $recent_product_id = json_encode($all_info);
+        Cookie::queue('recent_view',$recent_product_id, 1000);
+
         return view('frontend.page.details',[
             'product_info'=>$product_info,
             'thamnails'=>$thamnails,

@@ -91,8 +91,17 @@ class CheckoutController extends Controller
 
         $abc = substr($order_id, 1,13);
         return redirect()->route('order.success',$abc)->with('success','adaa');
-        
         }
+        else if($request->payment_method == 2) {
+            echo "ssl uncompled";
+        }
+        else{
+            $data = $request->all();
+            return view('frontend.payment.stripe',[
+                'data'=>$data,
+            ]);
+        }
+
         
     }
     public function orderSuccess($abc){

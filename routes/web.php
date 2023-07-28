@@ -17,6 +17,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPasswordResetController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,7 +73,13 @@ Route::post('/checkout/store',[CheckoutController::class,'store'])->name('checko
 Route::get('/order/success/{abc}',[CheckoutController::class,'orderSuccess'])->name('order.success');
 
 //searching..................
-Route::get('/search',[SearchController::class,'search'])->name('search'); 
+Route::get('/search',[SearchController::class,'search'])->name('search');
+
+//stripe-payment-method
+Route::controller(StripePaymentController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified'])
     ->group(function() {
