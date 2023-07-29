@@ -47,9 +47,19 @@
                                         </div>
                                         <div class="col d-flex align-items-center justify-content-between">
                                             <div class="cart_single_caption pl-2">
-                                                <h4 class="product_title fs-md ft-medium mb-1 lh-1">Women Striped Shirt Dress</h4>
-                                                <p class="mb-1 lh-1"><span class="text-dark">Size: {{ $cart->size->name }}</span></p>
-                                                <p class="mb-3 lh-1"><span class="text-dark">Color: {{ $cart->color->name }}</span></p>
+                                                <h4 class="product_title fs-md ft-medium mb-1 lh-1">{{$cart->product->name}}</h4>
+                                                <p class="mb-1 lh-1">
+                                                    @if ($cart->size)
+                                                    <span class="text-dark">Size: {{ $cart->size->name }}</span>  
+                                                    @endif
+                                                    
+                                                </p>
+                                                <p class="mb-3 lh-1">
+                                                    @if ($cart->color)
+                                                    <span class="text-dark">Color: {{ $cart->color->name }}</span>   
+                                                    @endif
+                                                    
+                                                </p>
                                                 <h4 class="fs-md ft-medium mb-3 lh-1">TK: {{ $cart->product->after_discount }}</h4>
                                                 <select class="mb-2 custom-select w-auto" name="quantity[ {{ $cart->id  }} ]">
                                                 <option value="1" {{ ($cart->quantity == 1)?'selected':'' }}>1</option>

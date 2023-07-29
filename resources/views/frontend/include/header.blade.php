@@ -77,7 +77,9 @@
                             </li>
                             <li>
                                 <a href="#" onclick="openWishlist()">
-                                    <i class="far fa-heart fs-lg"></i><span class="dn-counter bg-success">2</span>
+                                    <i class="far fa-heart fs-lg"></i><span class="dn-counter bg-success">
+                                        {{ App\Models\Wishlish::where('customer_id', Auth::guard('customerlogin')->id())->count() }}
+                                    </span>
                                 </a>
                             </li>
                             <li>

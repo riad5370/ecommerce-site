@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\Size;
 use App\Models\Subcategory;
 use App\Models\Thumbnail;
+use App\Models\Wishlish;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -158,5 +159,13 @@ class FrontendController extends Controller
     public function myOrder(){
         $myorders = Order::where('customer_id',Auth::guard('customerlogin')->id())->get();
         return view('frontend.page.my-order',compact('myorders'));
+    }
+
+    ///wishlist
+    public function wishlist(){
+        $wishlists = Wishlish::where('customer_id',Auth::guard('customerlogin')->id())->get();
+        return view('frontend.page.wishlist',[
+            'wishlists'=>$wishlists
+        ]);
     }
 }

@@ -110,8 +110,16 @@
                                                 <div class="col d-flex align-items-center">
                                                     <div class="cart_single_caption pl-2">
                                                         <h4 class="product_title fs-md ft-medium mb-1 lh-1">{{ $cart->product->name }}</h4>
-                                                        <p class="mb-1 lh-1"><span class="text-dark">{{ $cart->size->name }}</span></p>
-                                                        <p class="mb-3 lh-1"><span class="text-dark">Color: {{ $cart->color->name }}</span></p>
+                                                        <p class="mb-1 lh-1">
+															@if ($cart->size)
+															<span class="text-dark">{{ $cart->size->name }}</span>	
+															@endif
+														</p>
+                                                        <p class="mb-3 lh-1">
+															@if ($cart->color)
+															<span class="text-dark">Color: {{ $cart->color->name }}</span>	
+															@endif
+														</p>
                                                         <h4 class="fs-md ft-medium mb-3 lh-1">TK {{ $cart->product->after_discount }}</h4>
                                                     </div>
                                                 </div>

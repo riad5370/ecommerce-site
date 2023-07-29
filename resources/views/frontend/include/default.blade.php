@@ -9,55 +9,26 @@
             
             <div class="cart_select_items py-2">
                 <!-- Single Item -->
+                @foreach (App\Models\Wishlish::where('customer_id',Auth::guard('customerlogin')->id())->get() as $wish)
                 <div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
                     <div class="cart_single d-flex align-items-center">
                         <div class="cart_selected_single_thumb">
-                            <a href="#"><img src="{{asset('frontend')}}/img/product/4.jpg" width="60" class="img-fluid" alt="" /></a>
+                            <a href="{{ route('details',$wish->product->slug) }}"><img src="{{ asset('uploads/product/preview/'.$wish->product->preview) }}" width="60" class="img-fluid" alt="" /></a>
                         </div>
                         <div class="cart_single_caption pl-2">
-                            <h4 class="product_title fs-sm ft-medium mb-0 lh-1">Women Striped Shirt Dress</h4>
-                            <p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-                            <h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
+                            <h4 class="product_title fs-sm ft-medium mb-0 lh-1">{{ $wish->product->name }}</h4>
+                            <h4 class=" mt-2 fs-md ft-medium mb-0 lh-1">{{ $wish->product->after_discount }}</h4>
                         </div>
                     </div>
-                    <div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
+                    <div class="fls_last"><a href="{{ route('wish.remove', $wish->id) }}" class="close_slide gray"><i class="ti-close"></i></a></div>
                 </div>
-                
-                <!-- Single Item -->
-                <div class="d-flex align-items-center justify-content-between br-bottom px-3 py-3">
-                    <div class="cart_single d-flex align-items-center">
-                        <div class="cart_selected_single_thumb">
-                            <a href="#"><img src="{{asset('frontend')}}/img/product/7.jpg" width="60" class="img-fluid" alt="" /></a>
-                        </div>
-                        <div class="cart_single_caption pl-2">
-                            <h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Floral Print Jumpsuit</h4>
-                            <p class="mb-2"><span class="text-dark ft-medium small">36</span>, <span class="text-dark small">Red</span></p>
-                            <h4 class="fs-md ft-medium mb-0 lh-1">$129</h4>
-                        </div>
-                    </div>
-                    <div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-                </div>
-                
-                <!-- Single Item -->
-                <div class="d-flex align-items-center justify-content-between px-3 py-3">
-                    <div class="cart_single d-flex align-items-center">
-                        <div class="cart_selected_single_thumb">
-                            <a href="#"><img src="{{asset('frontend')}}/img/product/8.jpg" width="60" class="img-fluid" alt="" /></a>
-                        </div>
-                        <div class="cart_single_caption pl-2">
-                            <h4 class="product_title fs-sm ft-medium mb-0 lh-1">Girls Solid A-Line Dress</h4>
-                            <p class="mb-2"><span class="text-dark ft-medium small">30</span>, <span class="text-dark small">Blue</span></p>
-                            <h4 class="fs-md ft-medium mb-0 lh-1">$100</h4>
-                        </div>
-                    </div>
-                    <div class="fls_last"><button class="close_slide gray"><i class="ti-close"></i></button></div>
-                </div>
+                @endforeach
                 
             </div>
             
             <div class="cart_action px-3 py-3">
                 <div class="form-group">
-                    <button type="button" class="btn d-block full-width btn-dark-light">View Whishlist</button>
+                    <a href="{{ route('wishlist.view') }}" class="btn d-block full-width btn-dark-light">View Wishlist</a>
                 </div>
             </div>
             

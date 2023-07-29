@@ -13,11 +13,14 @@ class CartController extends Controller
 {
     public function cartStore(Request $request){
         if(Auth::guard('customerlogin')->id()){
+          $var = Inventory::where('product_id', $request->product_id)->first();
+          if($var && $var->color_id !== null && $var->size_id !== null ){
             $request->validate([
                'color_id'=>'required',
                'size_id'=>'required',
                'quantity'=>'required',
             ]);
+          }
             $quantity = Inventory::where('product_id', $request->product_id)->where('color_id',$request->color_id)->where('size_id',$request->size_id)->first()->quantity;
 
             if($quantity >= $request->quantity){

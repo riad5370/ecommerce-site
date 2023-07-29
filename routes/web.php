@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\RoleController;
 
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CustomerPasswordResetController;
@@ -36,6 +37,7 @@ Route::get('/product-details/{slug}',[FrontendController::class,'details'])->nam
 Route::post('/getsize',[FrontendController::class,'getsize']);
 Route::get('/customer/signup',[FrontendController::class,'signup'])->name('customer.signup');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart.view');
+Route::get('/wishlist',[FrontendController::class,'wishlist'])->name('wishlist.view');
 Route::get('/my/order',[FrontendController::class,'myOrder'])->name('my.order');
 Route::get('/category/product/{category_id}',[FrontendController::class,'categoryProduct'])->name('category.product');
 
@@ -66,6 +68,11 @@ Route::post('/review/store',[CustomerController::class,'reviewStore'])->name('re
 Route::post('/add/cart',[CartController::class,'cartStore'])->name('add.cart');
 Route::get('cart/remove/{id}',[CartController::class,'remove'])->name('cart.remove');
 Route::post('cart/update',[CartController::class,'cartUpdate'])->name('cart.update');
+
+//wishlist
+Route::post('/add/wishlist',[WishlistController::class,'wishlistStore'])->name('add.wishlist');
+Route::get('wish/remove/{id}',[WishlistController::class,'remove'])->name('wish.remove');
+
 
 //product-checkout
 Route::get('/checkout',[CheckoutController::class,'checkout'])->name('checkout');
