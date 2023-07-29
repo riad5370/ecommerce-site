@@ -24,6 +24,8 @@
 										<div class="form-group">
 											<label class="text-dark">Full Name *</label>
 											<input type="text" name="name" class="form-control" placeholder="First Name" value="{{ Auth::guard('customerlogin')->user()->name }}" />
+
+											 <input type="hidden" name="customer_id" class="form-control" value="{{ Auth::guard('customerlogin')->id()}}">
 										</div>
 									</div>
 									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">

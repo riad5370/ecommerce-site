@@ -15,6 +15,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class CheckoutController extends Controller
 {
@@ -93,7 +94,8 @@ class CheckoutController extends Controller
         return redirect()->route('order.success',$abc)->with('success','adaa');
         }
         else if($request->payment_method == 2) {
-            echo "ssl uncompled";
+            $data = $request->all();
+            return Redirect::route('pay')->with('data',$data);
         }
         else{
             $data = $request->all();
