@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\BillingDetails;
-use App\Models\CustolerLogin;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
@@ -106,4 +105,5 @@ class CustomerController extends Controller
             }
             return back();
     }
+
 }
